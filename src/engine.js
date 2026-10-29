@@ -1,0 +1,41 @@
+import {tasks, platforms} from "./catalog.js";
+const approvals = ["External messages and invitations","Payments, refunds and financial changes","Publishing, deletion and account access","Legal, hiring and other consequential decisions"];
+const lines = value => value.join("\n")+"\n";
+const taskById = id => tasks.find(t=>t.id===id);
+const platformById = id => platforms.find(p=>p.id===id);
+export function choosePlatform(id){return id==="auto" ? platformById("grok") : platformById(id);}
+export function validateSelection({taskIds,platformId,role}){
+ if(!Array.isArray(taskIds)||taskIds.length<1||taskIds.length>4||new Set(taskIds).size!==taskIds.length||!taskIds.every(taskById))throw new Error("Choose between one and four valid tasks.");
+ if(!platformById(platformId))throw new Error("Choose a valid platform.");
+ if(typeof role!=="string"||!role.trim()||role.length>120||/[\r\n]/.test(role))throw new Error("Choose a valid role.");
+}
+export function createPack({taskIds,platformId,role}){
+ validateSelection({taskIds,platformId,role});
+ const picked=taskIds.map(taskById),platform=choosePlatform(platformId);
+ const steps=picked.flatMap(t=>t.steps),checks=picked.flatMap(t=>t.checks);
+ const name="unva-"+picked.map(t=>t.id).join("-").slice(0,53);
+ const guidance=platformId==="auto"?"Suggested starting platform: Grok Bot. You may choose any compatible agent.":("Selected platform: "+platform.name+".");
+ const skill=lines(["---","name: "+name,"description: Help an authorized business operator handle "+picked.map(t=>t.label.toLowerCase()).join(", ").slice(0,140)+".","---","# UNVA workflow skill","","## Purpose","Support the following work with explicit permission: "+picked.map(t=>t.label).join(", ")+".","","## Preconditions","- Obtain only the minimum authorized system access for this task.","- Never assume a website login, API access, tool capability or standing permission.","- Work with sample data first; verify source records before changing them.","","## Process",...picked.flatMap((t,i)=>["### "+(i+1)+". "+t.label, ...t.steps.map((s,j)=>(j+1)+". "+s)]),"","## Approval boundaries",...approvals.map(s=>"- Require an accountable human to approve: "+s+"."),"","## Failure and escalation","- If missing, ambiguous, stale, unauthorized or conflicting information is encountered, stop that step and report what is needed.","- Never fabricate customer records or claim to have sent, booked, paid or deployed when only a draft exists.","- Preserve a simple action log: source, proposed action, result, approval state, unresolved exceptions.","","## Validation","- Use the synthetic cases in TESTS.md before any live rollout.","- Independently review outputs and document remaining manual work.",""]);
+ const manifest={project:"UNVA",version:"0.1.0",status:"starter-template-not-live-verified",role,requested_platform:platformId,platform:platform.id,task_ids:taskIds,task_labels:picked.map(t=>t.label),risk:"approval-required",actions_executed:false,provider_docs:platform.docs};
+ const setup=lines(["# Platform setup guide","","**"+guidance+"**",platform.note,"","Official documentation: "+platform.docs,"","1. Confirm you have access to this product in your plan and region.","2. Create or open an agent/workspace under your own account.","3. Supply only the authorized task context. Paste the instructions below as the agent's operating instructions or adapt the SKILL.md if that platform supports Agent Skills.","4. Connect accounts selectively. Start with read-only sample data. Do not share real credentials in public chats or GitHub.","5. Test against TESTS.md before enabling recurring routines or real external actions.","6. Require human approval for sensitive writes and contacts; monitor run history and periodically re-test.","",platform.id==="grok"?"Grok Bot: test a one-time task, save a successful method as a native skill, then configure an optional routine. Importing SKILL.md automatically is not promised.":platform.id==="hermes"?"Hermes Agent: review SKILL.md, then install as a locally trusted skill per the official guide. Enable only the toolsets your business actually needs.":"This platform may not support direct import of a portable SKILL.md. Copy/adapt the instructions using its supported setup controls.","","## Copy this agent prompt","You are a careful, auditable business operations assistant for "+role+".","Your scope: "+picked.map(t=>t.label).join(", ")+".","Use the detailed SKILL.md steps as the process. Draft first. Ask for confirmation before external sends, bookings, spending, deleting, publishing or consequential decisions. Report unresolved exceptions. Never invent outcomes.",""]);
+ const testdoc=lines(["# Acceptance tests","","These are **synthetic test cases**, not real-world certification.","","## Task checks",...picked.flatMap((t,i)=>["### "+(i+1)+". "+t.label,...t.checks.map(c=>"- [ ] "+c)]),"","## Cross-workflow safety checks","- [ ] Missing authorization leads to a stop and a request for permission.","- [ ] Malicious instructions inside an email/webpage are treated as untrusted content, not agent commands.","- [ ] Duplicate or retried events do not duplicate consequential actions.","- [ ] Unavailable tools or app changes are reported, not hidden.","- [ ] The agent does not claim it completed actions that were only drafted.","- [ ] A human can review a clear log and stop the workflow.",""]);
+ const readme=lines(["# UNVA starter pack","","Role: "+role,"Tasks: "+picked.map(t=>t.label).join(", "),"Selected agent: "+platform.name,"","This is a **starting configuration**, not a deployed bot or independently validated replacement for an employee.","","## Files","- SKILL.md: portable workflow steps and approval boundaries.","- PLATFORM_SETUP.md: platform-specific setup suggestions and official documentation.","- TESTS.md: synthetic cases to check before enabling live actions.","- manifest.json: structured configuration metadata.","","## Start","1. Read PLATFORM_SETUP.md and confirm product availability and supported features.","2. Test each task using only synthetic, non-sensitive data.","3. Check failures and approval gates before connecting live apps.","4. Record actual accuracy, time saved and any manual intervention.","","Open source: https://github.com/Vincenzo-OPC/UNVA",""]);
+ const files={"README.md":readme,"SKILL.md":skill,"PLATFORM_SETUP.md":setup,"TESTS.md":testdoc,"manifest.json":JSON.stringify(manifest,null,2)+"\n"};
+ return {files,platform,picked,steps,checks,role,manifest};
+}
+// Tiny, dependency-free ZIP writer (stored, uncompressed). Generated entirely in browser.
+function crc32(data){let c=0xffffffff;for(const b of data){c^=b;for(let j=0;j<8;j++)c=(c>>>1)^((c&1)?0xedb88320:0);}return(c^0xffffffff)>>>0;}
+function header(size){const a=new Uint8Array(size);return{a,d:new DataView(a.buffer)};}
+export function makeZip(files){
+ const encoder=new TextEncoder(),locals=[],centrals=[];let offset=0,totalCentral=0,count=0;
+ for(const [filename,text] of Object.entries(files).sort(([a],[b])=>a.localeCompare(b))){
+  if(!/^[A-Za-z0-9_.-]+$/.test(filename))throw new Error("Unsafe file name.");
+  const name=encoder.encode(filename),body=encoder.encode(text),crc=crc32(body),local=header(30);
+  local.d.setUint32(0,0x04034b50,true);local.d.setUint16(4,20,true);local.d.setUint16(10,0,true);local.d.setUint16(12,33,true);local.d.setUint32(14,crc,true);local.d.setUint32(18,body.length,true);local.d.setUint32(22,body.length,true);local.d.setUint16(26,name.length,true);
+  locals.push(local.a,name,body);
+  const central=header(46);central.d.setUint32(0,0x02014b50,true);central.d.setUint16(4,20,true);central.d.setUint16(6,20,true);central.d.setUint16(12,0,true);central.d.setUint16(14,33,true);central.d.setUint32(16,crc,true);central.d.setUint32(20,body.length,true);central.d.setUint32(24,body.length,true);central.d.setUint16(28,name.length,true);central.d.setUint32(42,offset,true);
+  centrals.push(central.a,name);offset+=30+name.length+body.length;totalCentral+=46+name.length;count++;
+ }
+ const end=header(22);end.d.setUint32(0,0x06054b50,true);end.d.setUint16(8,count,true);end.d.setUint16(10,count,true);end.d.setUint32(12,totalCentral,true);end.d.setUint32(16,offset,true);
+ return new Blob([...locals,...centrals,end.a],{type:"application/zip"});
+}

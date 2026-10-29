@@ -1,0 +1,139 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="theme-color" content="#f5f3ec">
+  <meta name="description" content="UNVA is an open-source AI workforce setup builder. Before you hire a VA, try AI. Pick your tasks, choose an agent, and download a setup pack.">
+  <meta property="og:title" content="UNVA · Before You Hire a VA, Try AI.">
+  <meta property="og:description" content="Turn routine business tasks into portable setup packs for AI agents. Open source and free.">
+  <meta property="og:type" content="website">
+  <title>UNVA. Before You Hire a VA, Try AI.</title>
+  <link rel="icon" type="image/svg+xml" href="./assets/favicon.svg">
+  <link rel="stylesheet" href="./styles.css">
+  <script type="module" src="./src/app.js"></script>
+</head>
+<body>
+  <a class="skip-link" href="#builder">Skip to builder</a>
+  <header class="site-header wrap">
+    <a class="brand" href="#top" aria-label="UNVA home"><span class="brand-symbol" aria-hidden="true">U<span class="slash">/</span></span><span>UNVA<span class="brand-period">.</span></span></a>
+    <nav class="main-nav" aria-label="Main navigation">
+      <a href="#builder">Builder</a>
+      <a href="#how">How It Works</a>
+      <a href="#recipes">Recipes</a>
+      <a href="#community">Contribute</a>
+    </nav>
+    <a class="nav-cta" href="https://github.com/Vincenzo-OPC/UNVA" target="_blank" rel="noopener noreferrer">GitHub <span aria-hidden="true">↗</span></a>
+  </header>
+  <main id="top">
+    <section class="hero wrap" aria-labelledby="hero-title">
+      <div class="hero-copy">
+        <div class="eyebrow"><span class="status-dot"></span> OPEN SOURCE · HUMAN OPTIONAL, THINKING REQUIRED</div>
+        <h1 id="hero-title">Before You<br>Hire a VA,<br><span class="marker">Try AI<span class="period">.</span></span></h1>
+        <p class="hero-sub">Don't hire for a task your AI agent could handle. Choose the work. We'll help you set it up.</p>
+        <div class="hero-actions">
+          <a class="button button-dark" href="#builder">UNVA this job <span aria-hidden="true">↗</span></a>
+          <a class="button button-quiet" href="#how">See how it works <span aria-hidden="true">↘</span></a>
+        </div>
+        <div class="proofline"><span class="proof-icon" aria-hidden="true">✳</span><span>No new bot. No account. Just the setup.</span></div>
+      </div>
+      <div class="hero-visual" aria-label="Illustrated clockwork robot routing business tasks to a computer">
+        <div class="art-label art-label-top">a new kind of<br><strong>workmate</strong></div>
+        <div class="orbit orbit-one" aria-hidden="true"></div>
+        <div class="orbit orbit-two" aria-hidden="true"></div>
+        <div class="floating-task task-a"><span class="tiny-icon">↗</span> INBOX <span class="task-check">✓</span></div>
+        <div class="floating-task task-b"><span class="tiny-icon">◷</span> SCHEDULE</div>
+        <div class="floating-task task-c"><span class="tiny-icon">⌁</span> RESEARCH</div>
+        <svg class="robot" viewBox="0 0 340 370" role="img" aria-label="Original illustrated clockwork bot mascot">
+          <ellipse cx="170" cy="328" rx="104" ry="16" fill="#171a1c" opacity=".12"/>
+          <path d="M159 71v-24" stroke="#171a1c" stroke-width="12" stroke-linecap="round"/>
+          <circle cx="159" cy="41" r="17" fill="#d9ff58" stroke="#171a1c" stroke-width="8"/>
+          <path d="M106 243 L89 315 M229 243 L250 314" stroke="#171a1c" stroke-width="22" stroke-linecap="round"/>
+          <path d="M85 316h49 M219 316h49" stroke="#171a1c" stroke-width="16" stroke-linecap="round"/>
+          <path d="M91 181 L54 228 M254 181 L287 225" stroke="#171a1c" stroke-width="21" stroke-linecap="round"/>
+          <circle cx="46" cy="240" r="23" fill="#d9ff58" stroke="#171a1c" stroke-width="9"/>
+          <circle cx="293" cy="234" r="23" fill="#d9ff58" stroke="#171a1c" stroke-width="9"/>
+          <rect x="89" y="180" width="164" height="104" rx="36" fill="#d9ff58" stroke="#171a1c" stroke-width="11"/>
+          <rect x="73" y="74" width="197" height="142" rx="48" fill="#f5f3ec" stroke="#171a1c" stroke-width="12"/>
+          <rect x="94" y="99" width="154" height="88" rx="28" fill="#171a1c"/>
+          <rect x="123" y="123" width="22" height="33" rx="11" fill="#d9ff58"/>
+          <rect x="198" y="123" width="22" height="33" rx="11" fill="#d9ff58"/>
+          <path d="M154 172 Q172 187 190 172" stroke="#d9ff58" stroke-width="7" stroke-linecap="round" fill="none"/>
+          <circle cx="171" cy="233" r="24" fill="#171a1c"/>
+          <circle cx="171" cy="233" r="12" fill="#f5f3ec"/>
+          <path d="M171 222v11l9 6" stroke="#171a1c" stroke-width="4" fill="none" stroke-linecap="round"/>
+          <circle cx="85" cy="147" r="9" fill="#d9ff58" stroke="#171a1c" stroke-width="7"/>
+          <circle cx="259" cy="147" r="9" fill="#d9ff58" stroke="#171a1c" stroke-width="7"/>
+        </svg>
+        <div class="art-label art-label-bottom">WORK SMARTER<br><strong>NOT HARDER ↗</strong></div>
+      </div>
+    </section>
+
+    <div class="marquee" aria-label="Project principles">
+      <div class="marquee-track"><span>AUTOMATE THE BORING</span><i>✳</i><span>KEEP CONTROL</span><i>✳</i><span>USE THE AI YOU ALREADY HAVE</span><i>✳</i><span>OPEN SOURCE, ALWAYS</span><i>✳</i></div>
+    </div>
+
+    <section class="builder-section" id="builder" aria-labelledby="builder-title">
+      <div class="wrap">
+        <div class="section-intro"><div class="eyebrow dark-eyebrow">01 / THE BUILDER</div><h2 id="builder-title">Give it the work.<br><span>We'll make a plan.</span></h2><p>Pick tasks or drag them into the workbench. Choose an existing agent. Get a downloadable starter kit, not another subscription.</p></div>
+        <div class="workspace">
+          <div class="workspace-input">
+            <div class="panel-header"><span class="mono">WORK / 001</span><span class="small-chip">YOUR INPUT</span></div>
+            <label class="field-label" for="role">What kind of help do you need?</label>
+            <select id="role" class="role-select">
+              <option>General Assistant</option><option>Executive Assistant</option><option>Customer Support</option><option>Operations Manager</option><option>Real Estate Assistant</option><option>Airbnb / Property Assistant</option><option>E-commerce Assistant</option><option>Recruiting Assistant</option><option>Other Business Role</option>
+            </select>
+            <div class="field-label field-top">Select the tasks <span class="field-hint">(tap or drag, up to 4)</span></div>
+            <div class="task-options" id="taskOptions" aria-label="Available work tasks"></div>
+            <div class="drop-target" id="taskDrop" tabindex="0" aria-label="Selected work tasks. Drag tasks here or click a task button."><span class="drop-label">YOUR WORKBENCH</span><div id="chosenTasks" class="chosen-tasks"></div></div>
+            <div class="field-label field-top">Choose an agent</div>
+            <div class="agent-options" id="agentOptions" role="radiogroup" aria-label="AI agent platform"></div>
+            <p class="privacy-note"><span aria-hidden="true">◎</span> Everything runs locally in your browser. No account or credentials needed.</p>
+          </div>
+          <div class="workspace-output" id="previewPanel">
+            <div class="panel-header"><span class="mono">OUTPUT / 001</span><span class="pulse-chip"><i></i> LIVE PREVIEW</span></div>
+            <div class="preview-eyebrow">THE HANDOFF</div>
+            <h3>Your starter setup<span class="period">.</span></h3>
+            <p class="preview-lead">A practical starting point you can test before touching real business accounts.</p>
+            <div class="preview-agent"><span class="preview-agent-label">SUGGESTED PLATFORM</span><strong id="recommendedAgent">Grok Bot</strong><small id="platformNote"></small></div>
+            <div class="preview-list-title">YOUR WORKFLOW</div>
+            <ol id="previewSteps" class="preview-steps"></ol>
+            <div class="approval-line"><span aria-hidden="true">⊙</span> Human approval before consequential actions.</div>
+            <button type="button" class="button download-button" id="downloadPack">Download setup pack <span aria-hidden="true">↓</span></button>
+            <button type="button" class="copy-button" id="copyPrompt">Copy agent instructions ↗</button>
+            <p id="builderStatus" class="builder-status" role="status" aria-live="polite">Includes SKILL.md, platform guide, manifest and tests.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="how-section wrap" id="how" aria-labelledby="how-title">
+      <div class="section-intro"><div class="eyebrow">02 / HOW IT WORKS</div><h2 id="how-title">Not another AI.<br><span>A better way to use one.</span></h2></div>
+      <div class="how-grid">
+        <article><span class="how-number">01</span><span class="how-glyph" aria-hidden="true">▤</span><h3>Pick the work</h3><p>Start with what you need done, not a vague job title.</p></article>
+        <article><span class="how-number">02</span><span class="how-glyph" aria-hidden="true">⌘</span><h3>Choose your agent</h3><p>Use an AI you already have, or compare supported options.</p></article>
+        <article><span class="how-number">03</span><span class="how-glyph" aria-hidden="true">⇣</span><h3>Own the setup</h3><p>Download plain-text instructions, skills, and test cases.</p></article>
+      </div>
+    </section>
+
+    <section class="recipes-section" id="recipes" aria-labelledby="recipes-title">
+      <div class="wrap">
+        <div class="recipes-head"><div><div class="eyebrow">03 / OPEN RECIPES</div><h2 id="recipes-title">The boring stuff,<br><span>solved together.</span></h2></div><p>Community-friendly starter workflows. These are editable templates, not claims of independently verified autonomous performance.</p></div>
+        <div class="recipe-grid">
+          <article><span class="recipe-num">001</span><div class="recipe-symbol">✉</div><h3>Inbox to Action</h3><p>Sort requests, draft a reply, route the next step.</p><a href="#builder" data-preset="inbox">Build this setup ↗</a></article>
+          <article><span class="recipe-num">002</span><div class="recipe-symbol">◷</div><h3>Calendar Control</h3><p>Prepare scheduling options and catch conflicts.</p><a href="#builder" data-preset="scheduling">Build this setup ↗</a></article>
+          <article><span class="recipe-num">003</span><div class="recipe-symbol">◎</div><h3>Support Triage</h3><p>Classify common requests and escalate exceptions.</p><a href="#builder" data-preset="support">Build this setup ↗</a></article>
+          <article><span class="recipe-num">004</span><div class="recipe-symbol">⌕</div><h3>Research Desk</h3><p>Find sources, compare claims, and prepare a report.</p><a href="#builder" data-preset="research">Build this setup ↗</a></article>
+        </div>
+      </div>
+    </section>
+
+    <section class="movement-section wrap" id="community" aria-labelledby="community-title">
+      <div class="movement-copy"><div class="eyebrow">04 / JOIN THE MOVEMENT</div><h2 id="community-title">Make the setup<br><span>better for everyone.</span></h2><p>Contribute a workflow, test a setup, improve an integration, or translate the docs. The best automation is one people can actually run and verify.</p><div class="hero-actions"><a class="button button-dark" href="https://github.com/Vincenzo-OPC/UNVA" target="_blank" rel="noopener noreferrer">Star on GitHub ↗</a><a class="button button-quiet" href="https://github.com/Vincenzo-OPC/UNVA/blob/main/CONTRIBUTING.md" target="_blank" rel="noopener noreferrer">Contribute a recipe ↗</a></div></div>
+      <div class="movement-mark" aria-hidden="true"><span>UN</span><span>VA.</span><small>OPEN SOURCE<br>WORK REVOLUTION</small></div>
+    </section>
+    <section class="bottom-banner"><div class="wrap"><p>Still thinking of hiring a VA?</p><h2>Run the AI check first<span>.</span></h2><a class="button button-signal" href="#builder">UNVA this job ↗</a></div></section>
+  </main>
+  <footer class="site-footer wrap"><strong>UNVA.</strong><span>Open source. Independent. Built for better work.</span><a href="https://github.com/Vincenzo-OPC/UNVA" target="_blank" rel="noopener noreferrer">GitHub ↗</a><small>Third-party AI products are independent and may require paid plans or setup. No vendor endorsement is implied. No autonomous deployment occurs on this page.</small></footer>
+</body>
+</html>
